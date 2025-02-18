@@ -1,0 +1,113 @@
+import java.io.IOException;
+import java.io.PrintWriter;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+/**
+ * Servlet implementation class BMICal
+ */
+@WebServlet("/BMICal")
+public class BMICal extends HttpServlet {
+    private static final long serialVersionUID = 1L;
+
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public BMICal() {
+        super();
+    }
+
+    /**
+     * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+     * Xử lý GET request, trả về form nhập chiều cao và cân nặng.
+     */
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        PrintWriter out = response.getWriter();
+
+        try {
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>BMI Calculator</title>");
+            out.println("<style>");
+            out.println("body { font-family: Arial, sans-serif; background-color: #f4f4f4; text-align: center; padding: 50px; }");
+            out.println("form { background: white; padding: 20px; border-radius: 10px; box-shadow: 0px 0px 10px gray; display: inline-block; text-align: left; max-width: 400px; }");
+            out.println("label { font-weight: bold; }");
+            out.println("input[type='number'] { padding: 10px; width: 100%; margin: 10px 0; }");
+            out.println("input[type='submit'] { padding: 10px 20px; background-color: #4CAF50; color: white; border: none; cursor: pointer; width: 100%; }");
+            out.println("input[type='submit']:hover { background-color: #45a049; }");
+            out.println("</style>");
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>BMI Calculator</h1>");
+            out.println("<form method='POST' action='BMICal'>");
+            out.println("<label for='height'>Height (in meters):</label>");
+            out.println("<input type='number' step='0.01' id='height' name='height' required>");
+            out.println("<label for='weight'>Weight (in kg):</label>");
+            out.println("<input type='number' step='0.1' id='weight' name='weight' required>");
+            out.println("<input type='submit' value='Calculate BMI'>");
+            out.println("</form>");
+            out.println("</body>");
+            out.println("</html>");
+        } finally {
+            out.close();
+        }
+    }
+
+    /**
+     * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+     * Xử lý POST request, nhận dữ liệu từ form và tính toán BMI.
+     */
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // Nhận giá trị từ form
+        double height = Double.parseDouble(request.getParameter("height"));
+        double weight = Double.parseDouble(request.getParameter("weight"));
+
+        // Tính BMI
+        double bmi = weight / (height * height);
+
+        // Xác định trạng thái BMI
+        String status = "";
+        if (bmi < 18.5) {
+            status = "Underweight";
+        } else if (bmi >= 18.5 && bmi < 24.9) {
+            status = "Normal weight";
+        } else if (bmi >= 25 && bmi < 29.9) {
+            status = "Overweight";
+        } else {
+            status = "Obesity";
+        }
+
+        // Trả về kết quả
+        response.setContentType("text/html;charset=UTF-8");
+        PrintWriter out = response.getWriter();
+
+        try {
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>BMI Result</title>");
+            out.println("<style>");
+            out.println("body { font-family: Arial, sans-serif; background-color: #f4f4f4; text-align: center; padding: 50px; }");
+            out.println(".result { background: white; padding: 20px; border-radius: 10px; box-shadow: 0px 0px 10px gray; display: inline-block; text-align: left; max-width: 400px; }");
+            out.println("h2 { color: #4CAF50; }");
+            out.println("</style>");
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>BMI Calculation Result</h1>");
+            out.println("<div class='result'>");
+            out.println("<h2>Your BMI: " + String.format("%.2f", bmi) + "</h2>");
+            out.println("<p>Status: " + status + "</p>");
+            out.println("<a href='BMICal'>Back to Calculator</a>");
+            out.println("</div>");
+            out.println("</body>");
+            out.println("</html>");
+        } finally {
+            out.close();
+        }
+    }
+}

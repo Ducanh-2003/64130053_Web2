@@ -1,0 +1,81 @@
+package Demo;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+/**
+ * Servlet implementation class AboutMe
+ */
+@WebServlet("/AboutMe")
+public class AboutMe extends HttpServlet {
+    private static final long serialVersionUID = 1L;
+       
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public AboutMe() {
+        super();
+    }
+
+    /**
+     * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+     */
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        PrintWriter out = response.getWriter();
+        
+        try {
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css\">");
+            out.println("<title>About Me</title>");
+            out.println("<style>");
+            out.println("body { font-family: Arial, sans-serif; background-color: #f4f4f4; text-align: center; padding: 50px; }");
+            out.println(".container { background: white; padding: 20px; border-radius: 10px; box-shadow: 0px 0px 10px gray; display: inline-block; text-align: left; max-width: 600px; }");
+            out.println(".profile { background: #00a6ff; color: white; padding: 20px; border-radius: 10px 10px 0 0; text-align: center; }");
+            out.println(".profile img { width: 120px; height: 120px; border-radius: 50%; border: 4px solid #e9f52f; }");
+            out.println(".profile h2 { margin: 10px 0; }");
+            out.println(".social-icons a { margin: 0 10px; text-decoration: none; font-size: 20px; color: white; }");
+            out.println(".content { padding: 20px; }");
+            out.println(".button { display: block; margin: 20px auto; padding: 10px 20px; border: 2px solid #00a6ff; border-radius: 5px; text-decoration: none; color: #00a6ff; font-weight: bold; text-align: center; max-width: 200px; }");
+            out.println("</style>");
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<div class='container'>");
+            out.println("<div class='profile'>");
+            out.println("<img src='https://prod-printler-front-as.azurewebsites.net/media/photo/175862.jpg?mode=crop&width=638&height=900&rnd=0.0.1' alt='Avatar'>");
+            out.println("<h2>HELLO, I'M ANH DUC NGUYEN</h2>");
+            out.println("<p>I am a full stack developer with experience in various projects.</p>");
+            out.println("<div class='social-icons'>");
+            out.println("<a href='https://www.facebook.com/nguyen.duc.anh.36615' target='_blank'><i class='fab fa-facebook'></i></a>");
+            out.println("<a href='https://www.instagram.com/ducanh_0903?igsh=MTltcHRmaHg3Y285OA==' target='_blank'><i class='fab fa-instagram'></i></a>");
+            out.println("<a href='https://github.com/Ducanh-2003' target='_blank'><i class=\"fa-brands fa-github\"></i></a>");
+            out.println("</div>");
+            out.println("</div>");
+            out.println("<div class='content'>");
+            out.println("<h2>About Me</h2>");
+            out.println("<p>I am a third-year student at Nha Trang University, majoring in Information Technology. As part of my Web Application Development 2 course, I am studying on an assignment that involves learning and implementing the doPost and doGet methods in servlet. This project aims to deepen my understanding of handling HTTP requests and responses in web applications, focusing on how these methods interact to process data in a servlet-based environment.</p>");
+            out.println("<a href='mailto:anh.nd.64cntt@ntu.edu.vn' class='button'>CONTACT ME</a>");
+            out.println("</div>");
+            out.println("</div>");
+            out.println("</body>");
+            out.println("</html>");
+        } finally {
+            out.close();
+        }
+    }
+
+    /**
+     * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+     */
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        doGet(request, response);
+    }
+}
+
