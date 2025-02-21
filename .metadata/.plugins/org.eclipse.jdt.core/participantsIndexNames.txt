@@ -1,3 +1,7 @@
 INDEX VERSION 1.134
+C:\Users\duc anh\eclipse-workspace\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\1241334207.index
+\HelloJSPEx1\src\main\java
 C:\Users\duc anh\eclipse-workspace\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\1872594345.index
 \vdEE1\src\main\java
+C:\Users\duc anh\eclipse-workspace\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\3227369605.index
+\HelloJSP\src\main\java

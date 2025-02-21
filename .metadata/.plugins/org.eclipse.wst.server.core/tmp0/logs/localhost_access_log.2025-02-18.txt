@@ -1,0 +1,8 @@
+127.0.0.1 - - [18/Feb/2025:10:23:20 +0700] "GET / HTTP/1.1" 404 751
+0:0:0:0:0:0:0:1 - - [18/Feb/2025:10:23:20 +0700] "GET /HelloJSP/WEB-INF/index.jsp HTTP/1.1" 404 682
+0:0:0:0:0:0:0:1 - - [18/Feb/2025:10:23:20 +0700] "GET /favicon.ico HTTP/1.1" 404 762
+0:0:0:0:0:0:0:1 - - [18/Feb/2025:10:23:38 +0700] "GET /HelloJSP/WEB-INF/index.jsp HTTP/1.1" 404 682
+0:0:0:0:0:0:0:1 - - [18/Feb/2025:10:23:49 +0700] "GET /HelloJSP/WEB-INF/index.jsp HTTP/1.1" 404 682
+0:0:0:0:0:0:0:1 - - [18/Feb/2025:10:24:29 +0700] "GET /HelloJSP/WEB-INF/index.jsp HTTP/1.1" 404 682
+0:0:0:0:0:0:0:1 - - [18/Feb/2025:10:46:53 +0700] "GET /HelloJSPEx1/WEB-INF/index.jsp HTTP/1.1" 404 767
+0:0:0:0:0:0:0:1 - - [18/Feb/2025:10:46:53 +0700] "GET /favicon.ico HTTP/1.1" 404 762
