@@ -1,15 +1,24 @@
 package controllers;
 
+import jakarta.servlet.http.HttpServletRequest;
 import models.StudentModel;
+import models.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @Controller
 public class TruyenDuLieuSangView {
+
+    private static final String ID = "64130053";
+    private static final String PW = "ducanh123";
+
     @RequestMapping("/truyendulieu")
     public String truyenDuLieu(ModelMap model) {
         model.addAttribute("mssv","64130053");
@@ -30,6 +39,24 @@ public class TruyenDuLieuSangView {
 
         model.addAttribute("studentModelList", studentModelList);
         return "ListView";
+    }
+
+
+    @RequestMapping("/login")
+    public String login(HttpServletRequest request, ModelMap model) throws ParseException {
+        String id = request.getParameter("id");
+        String pw = request.getParameter("pw");
+
+        if(ID.equals(id) && PW.equals(pw)) {
+            Date dob = new SimpleDateFormat("yyyy-MM-dd").parse("2003-20-03");
+            User user = new User(id, "NGUYỄN ĐỨC ANH", true, dob);
+            model.addAttribute("uInfo", user);
+            return "UserLogin";
+        }
+        else{
+            return "Login";
+        }
+
     }
 
 }
