@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Simple Form</title>
+</head>
+<body>
+<h2>Enter your name:</h2>
+<form th:action="@{/submit}" method="post">
+    <label for="name">
+        <input type="text" name="name" id="name" required>
+    </label>
+    <button type="submit">Submit</button>
+</form>
+
+<p th:if="${greeting}" th:text="${greeting}"></p>
+</body>
+</html>
