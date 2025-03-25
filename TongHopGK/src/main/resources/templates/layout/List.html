@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        padding: 20px;
+    }
+    h1 {
+        text-align: center;
+        color: #333;
+    }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        background-color: #fff;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    th, td {
+        border: 1px solid #ddd;
+        padding: 12px;
+        text-align: center;
+    }
+    th {
+        background-color: #63ca66;
+        color: white;
+    }
+    tr:nth-child(even) {
+        background-color: #f9f9f9;
+    }
+    tr:hover {
+        background-color: #f1f1f1;
+    }
+</style>
+<body>
+<div th:fragment="pList">
+<h1>Danh sách sinh viên</h1>
+
+
+<table>
+    <thead>
+    <tr>
+        <th>Mã sinh viên</th>
+        <th>Họ và tên</th>
+        <th>Điểm trung bình</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="student : ${studentModelList}">
+        <td th:text="${student.stuId}"></td>
+        <td th:text="${student.stuName}"></td>
+        <td th:text="${student.stuGrade}"></td>
+    </tr>
+    </tbody>
+</table>
+</div>
+
+</body>
+</html>

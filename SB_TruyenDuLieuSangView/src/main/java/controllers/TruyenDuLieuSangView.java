@@ -29,7 +29,7 @@ public class TruyenDuLieuSangView {
     }
 
     @GetMapping("/truyendsObject")
-    public String truyenDsObject(ModelMap model) {
+    public String truyenDsObject(ModelMap modelModelMap model) {
         List<StudentModel> studentModelList = List.of(
                 new StudentModel("64130053", "Nguyễn Đức Anh", true, "20/03/2003"),
                 new StudentModel("64130000", "Nguyễn Thị Thị", false, "01/01/2001"),
