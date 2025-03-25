@@ -36,9 +36,8 @@
                     <div th:replace="~{layout/List :: pList}"></div>
                 </div>
 
-                <div th:if="${page == 'addNew'}">
-                    <h1>Add New Page</h1>
-                    <p>Form to add new item...</p>
+                <div th:if="${page == 'add'}">
+                    <div th:replace="~{layout/AddNew :: pAddNew}"></div>
                 </div>
             </div>
         </div>

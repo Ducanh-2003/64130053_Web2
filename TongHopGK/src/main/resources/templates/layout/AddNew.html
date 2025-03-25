@@ -2,9 +2,27 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Thêm sinh viên</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-<div th:fragment="pAddNew"></div>
+<div th:fragment="pAddNew" class="container">
+    <h2 class="text-center my-4">Thêm Sinh Viên</h2>
+    <form action="/addStudent" method="post" class="w-50 mx-auto">
+        <div class="mb-3">
+            <label for="ma" class="form-label">Mã Sinh Viên</label>
+            <input id="ma" type="text" name="stuId" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label for="name" class="form-label">Họ và Tên</label>
+            <input id="name" type="text" name="stuName" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label for="diem" class="form-label">Điểm Trung Bình</label>
+            <input id="diem" type="number" step="0.1" name="stuGrade" class="form-control" required>
+        </div>
+        <button type="submit" class="btn btn-success w-100">Thêm</button>
+    </form>
+</div>
 </body>
 </html>

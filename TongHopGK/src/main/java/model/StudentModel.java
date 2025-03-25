@@ -1,10 +1,16 @@
 package model;
+
 import lombok.Getter;
+import lombok.Setter;
+
 @Getter
+@Setter
 public class StudentModel {
-    private final String stuId;
-    private final String stuName;
-    private final double stuGrade;
+    private String stuId;
+    private String stuName;
+    private double stuGrade;
+
+    public StudentModel() {}
 
     public StudentModel(String stuId, String stuName, double stuGrade) {
         this.stuId = stuId;
