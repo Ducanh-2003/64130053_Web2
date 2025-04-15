@@ -14,9 +14,5 @@ public class HomeController {
         model.addAttribute("gioiTinh", "Male");
         return "Dashboard";
     }
-    @RequestMapping("/layout")
-    public String layout(ModelMap model) {
-        model.addAttribute("hoVaTen", "Nguyễn Đức Anh");
-        return "FrontEndLayout";
-    }
+
 }
