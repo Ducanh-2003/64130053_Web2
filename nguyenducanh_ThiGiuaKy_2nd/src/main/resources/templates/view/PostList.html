@@ -1,10 +1,51 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Page-list</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
-<body>
+<style>
+    .custom-flex-fill {
+        flex: 20 1 auto !important;
+    }
+</style>
+<body class="d-flex flex-column min-vh-100">
+<div class="d-flex flex-grow-1">
+    <div class="sidebar bg-light" th:replace="FrontEndLayout::pSidebar"></div>
 
+    <div class="custom-flex-fill">
+        <div th:replace="FrontEndLayout::pHeader"></div>
+        <div class="container py-4 pe-5">
+            <h1 class="mb-4">Page list</h1>
+            <table class="table table-striped table-hover table-bordered">
+                <thead class="table-light">
+                <tr>
+                    <th>ID</th>
+                    <th>Page Name</th>
+                    <th>Parent Page ID</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="post : ${postList}">
+                    <td th:text="${post.id}"></td>
+                    <td th:text="${post.title}"></td>
+                    <td th:text="${post.categoryId}"></td>
+                    <td>
+                        <a th:href="@{'/post/view/' + ${post.id}}">View</a> |
+                        <a th:href="@{'/post/edit/' + ${post.title}}">Edit</a> |
+                        <a th:href="@{'/post/delete/' + ${post.categoryId}}"
+                           onclick="return confirm('Are you sure to delete this post?');">Delete</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</div>
+
+<div th:replace="FrontEndLayout::pFooter"></div>
 </body>
 </html>

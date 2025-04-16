@@ -77,6 +77,9 @@ public class PageController {
         return "redirect:/page/all";
     }
 
-
-
+    @GetMapping("/page/delete/{id}")
+    public String getDeletePage(@PathVariable String id) {
+        pages.removeIf(s -> s.getId().equals(id));
+        return "redirect:/page/all";
+    }
 }
