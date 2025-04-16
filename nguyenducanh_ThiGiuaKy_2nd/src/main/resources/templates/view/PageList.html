@@ -32,9 +32,9 @@
                         <td th:text="${page.pageName}"></td>
                         <td th:text="${page.parentPageId}"></td>
                         <td>
-                            <a th:href="@{'/student/view/' + ${page.id}}">View</a> |
-                            <a th:href="@{'/student/edit/' + ${page.id}}">Edit</a> |
-                            <a th:href="@{'/student/delete/' + ${page.id}}"
+                            <a th:href="@{'/page/view/' + ${page.id}}">View</a> |
+                            <a th:href="@{'/page/edit/' + ${page.id}}">Edit</a> |
+                            <a th:href="@{'/page/delete/' + ${page.id}}"
                                onclick="return confirm('Are you sure to delete this page?');">Delete</a>
                         </td>
                     </tr>
