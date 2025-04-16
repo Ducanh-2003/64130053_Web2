@@ -42,4 +42,41 @@ public class PageController {
         return "redirect:/page/all";
     }
 
+    @GetMapping("/page/view/{id}")
+    public String getPageById(@PathVariable String id, ModelMap model) {
+        Page getIdPage = pages.stream()
+                .filter(s -> s.getId().equals(id))
+                .findFirst()
+                .orElse(null);
+        model.addAttribute("getIdView", getIdPage);
+        return "view/PageView";
+    }
+
+    @GetMapping("/page/edit/{id}")
+    public String getEditPage(@PathVariable String id, ModelMap model) {
+        Page getIdPage = pages.stream()
+                .filter(s -> s.getId().equals(id))
+                .findFirst()
+                .orElse(null);
+        model.addAttribute("getIdEdit", getIdPage);
+        return "view/PageEdit";
+    }
+
+    @PostMapping("/page/edit/{id}")
+    public String postEditPage(@PathVariable String id, @ModelAttribute Page page) {
+        Page getIdPage = pages.stream()
+                .filter(s -> s.getId().equals(id))
+                .findFirst()
+                .orElse(null);
+        if (getIdPage != null) {
+            getIdPage.setPageName(page.getPageName());
+            getIdPage.setKeyword(page.getKeyword());
+            getIdPage.setContent(page.getContent());
+            getIdPage.setParentPageId(page.getParentPageId());
+        }
+        return "redirect:/page/all";
+    }
+
+
+
 }

@@ -1,10 +1,34 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Page-view</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
-<body>
+<style>
+    .custom-flex-fill {
+        flex: 20 1 auto !important;
+    }
+</style>
+<body class="d-flex flex-column min-vh-100">
+<div class="d-flex flex-grow-1">
+    <div class="sidebar bg-light" th:replace="FrontEndLayout::pSidebar"></div>
 
+    <div class="custom-flex-fill">
+        <div th:replace="FrontEndLayout::pHeader"></div>
+        <div class="container py-4 pe-5">
+            <h1 class="mb-4">Page view</h1>
+            <div class="">
+                <p><strong>ID:</strong> <span th:text="${getIdView.id}"></span></p>
+                <p><strong>Page name:</strong> <span th:text="${getIdView.pageName}"></span></p>
+                <p><strong>Keyword:</strong> <span th:text="${getIdView.keyword}"></span></p>
+                <p><strong>Content:</strong> <span th:text="${getIdView.content}"></span></p>
+                <p><strong>Parent page id:</strong> <span th:text="${getIdView.parentPageId}"></span></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:replace="FrontEndLayout::pFooter"></div>
 </body>
 </html>
