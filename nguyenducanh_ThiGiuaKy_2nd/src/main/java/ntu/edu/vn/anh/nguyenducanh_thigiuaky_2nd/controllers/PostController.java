@@ -28,4 +28,16 @@ public class PostController {
         return "view/PostList";
     }
 
+    @GetMapping("/post/new")
+    public String getNewPost(ModelMap model) {
+        model.addAttribute("post", new Post());
+        return "view/PostNew";
+    }
+
+    @PostMapping("/post/new")
+    public String postNewPost(@ModelAttribute Post post) {
+        posts.add(post);
+        return "redirect:/post/all";
+    }
+
 }

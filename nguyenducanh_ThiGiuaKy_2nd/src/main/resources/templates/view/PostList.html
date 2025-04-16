@@ -22,9 +22,8 @@
                 <thead class="table-light">
                 <tr>
                     <th>ID</th>
-                    <th>Page Name</th>
-                    <th>Parent Page ID</th>
-                    <th>Actions</th>
+                    <th>Title</th>
+                    <th>Category ID</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -34,14 +33,13 @@
                     <td th:text="${post.categoryId}"></td>
                     <td>
                         <a th:href="@{'/post/view/' + ${post.id}}">View</a> |
-                        <a th:href="@{'/post/edit/' + ${post.title}}">Edit</a> |
-                        <a th:href="@{'/post/delete/' + ${post.categoryId}}"
+                        <a th:href="@{'/post/edit/' + ${post.id}}">Edit</a> |
+                        <a th:href="@{'/post/delete/' + ${post.id}}"
                            onclick="return confirm('Are you sure to delete this post?');">Delete</a>
                     </td>
                 </tr>
                 </tbody>
             </table>
-
         </div>
     </div>
 </div>
