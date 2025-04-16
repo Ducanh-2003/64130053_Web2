@@ -18,35 +18,35 @@
         <div th:replace="FrontEndLayout::pHeader"></div>
         <div class="container py-4 pe-5">
             <h1 class="mb-4">Page new</h1>
-            <form th:action="@{/page/new}" th:object="${page}" method="post">
-                <div>
-                    <label for="id">ID:</label>
-                    <input type="text" id="id" th:field="*{id}" required />
+            <form th:action="@{/page/new}" th:object="${page}" method="post" class="container mt-4">
+                <div class="mb-3">
+                    <label for="id" class="form-label">ID:</label>
+                    <input type="text" id="id" th:field="*{id}" class="form-control" required />
                 </div>
 
-                <div>
-                    <label for="pageName">Page Name:</label>
-                    <input type="text" id="pageName" th:field="*{pageName}" required />
+                <div class="mb-3">
+                    <label for="pageName" class="form-label">Page Name:</label>
+                    <input type="text" id="pageName" th:field="*{pageName}" class="form-control" required />
                 </div>
 
-                <div>
-                    <label for="keyword">Keyword:</label>
-                    <input type="text" id="keyword" th:field="*{keyword}" required />
+                <div class="mb-3">
+                    <label for="keyword" class="form-label">Keyword:</label>
+                    <input type="text" id="keyword" th:field="*{keyword}" class="form-control" required />
                 </div>
 
-                <div>
-                    <label for="content">Content:</label>
-                    <input type="text" id="content" th:field="*{content}" required />
+                <div class="mb-3">
+                    <label for="content" class="form-label">Content:</label>
+                    <input type="text" id="content" th:field="*{content}" class="form-control" required />
                 </div>
 
-                <div>
-                    <label for="parentPageId">Parent Page ID:</label>
-                    <input type="text" id="parentPageId" th:field="*{parentPageId}" required />
+                <div class="mb-3">
+                    <label for="parentPageId" class="form-label">Parent Page ID:</label>
+                    <input type="text" id="parentPageId" th:field="*{parentPageId}" class="form-control" required />
                 </div>
 
-                <div style="margin-top: 15px;">
-                    <button type="submit">Save</button>
-                    <a href="/page/all">Cancel</a>
+                <div class="mt-4">
+                    <button type="submit" class="btn btn-success">Save</button>
+                    <a href="/page/all" class="btn btn-secondary ms-2">Cancel</a>
                 </div>
             </form>
         </div>

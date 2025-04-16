@@ -18,13 +18,18 @@
         <div th:replace="FrontEndLayout::pHeader"></div>
         <div class="container py-4 pe-5">
             <h1 class="mb-4">Page view</h1>
-            <div class="">
-                <p><strong>ID:</strong> <span th:text="${getIdView.id}"></span></p>
-                <p><strong>Page name:</strong> <span th:text="${getIdView.pageName}"></span></p>
-                <p><strong>Keyword:</strong> <span th:text="${getIdView.keyword}"></span></p>
-                <p><strong>Content:</strong> <span th:text="${getIdView.content}"></span></p>
-                <p><strong>Parent page id:</strong> <span th:text="${getIdView.parentPageId}"></span></p>
+            <div class="container mt-4">
+                <div class="card">
+                    <div class="card-body">
+                        <p class="mb-3"><span class="fw-bold">ID:</span> <span th:text="${getIdView.id}"></span></p>
+                        <p class="mb-3"><span class="fw-bold">Page name:</span> <span th:text="${getIdView.pageName}"></span></p>
+                        <p class="mb-3"><span class="fw-bold">Keyword:</span> <span th:text="${getIdView.keyword}"></span></p>
+                        <p class="mb-3"><span class="fw-bold">Content:</span> <span th:text="${getIdView.content}"></span></p>
+                        <p class="mb-0"><span class="fw-bold">Parent page id:</span> <span th:text="${getIdView.parentPageId}"></span></p>
+                    </div>
+                </div>
             </div>
+
         </div>
     </div>
 </div>
