@@ -49,4 +49,34 @@ public class PostController {
         model.addAttribute("getIdView", getIdPost);
         return "view/PostView";
     }
+
+    @GetMapping("/post/edit/{id}")
+    public String getEditPost(@PathVariable String id, ModelMap model) {
+        Post getIdPost = posts.stream()
+                .filter(s -> s.getId().equals(id))
+                .findFirst()
+                .orElse(null);
+        model.addAttribute("getIdEdit", getIdPost);
+        return "view/PostEdit";
+    }
+
+    @PostMapping("/post/edit/{id}")
+    public String postEditPost(@PathVariable String id, @ModelAttribute Post post) {
+        Post getIdPost = posts.stream()
+                .filter(s -> s.getId().equals(id))
+                .findFirst()
+                .orElse(null);
+        if (getIdPost != null) {
+            getIdPost.setTitle(post.getTitle());
+            getIdPost.setContent(post.getContent());
+            getIdPost.setCategoryId(post.getCategoryId());
+        }
+        return "redirect:/post/all";
+    }
+
+    @GetMapping("/post/delete/{id}")
+    public String getDeletePost(@PathVariable String id) {
+        posts.removeIf(s -> s.getId().equals(id));
+        return "redirect:/post/all";
+    }
 }
