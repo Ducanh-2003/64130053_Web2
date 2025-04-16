@@ -40,4 +40,13 @@ public class PostController {
         return "redirect:/post/all";
     }
 
+    @GetMapping("/post/view/{id}")
+    public String getPostById(@PathVariable String id, ModelMap model) {
+        Post getIdPost = posts.stream()
+                .filter(s -> s.getId().equals(id))
+                .findFirst()
+                .orElse(null);
+        model.addAttribute("getIdView", getIdPost);
+        return "view/PostView";
+    }
 }
