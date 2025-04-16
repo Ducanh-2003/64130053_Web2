@@ -1,10 +1,53 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Page-list</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
-<body>
+<style>
+    .custom-flex-fill {
+        flex: 20 1 auto !important;
+    }
+</style>
+<body class="d-flex flex-column min-vh-100">
+<div class="d-flex flex-grow-1">
+    <div class="sidebar bg-light" th:replace="FrontEndLayout::pSidebar"></div>
 
+    <div class="custom-flex-fill">
+        <div th:replace="FrontEndLayout::pHeader"></div>
+        <div class="container py-4 pe-5">
+            <h1 class="mb-4">Post edit</h1>
+            <form th:action="@{/post/edit/{id}(id=${getIdEdit.id})}" th:object="${getIdEdit}" method="post" class="container mt-4">
+                <div class="mb-3">
+                    <label for="id" class="form-label">ID:</label>
+                    <input type="text" id="id" th:field="*{id}" class="form-control" disabled />
+                </div>
+
+                <div class="mb-3">
+                    <label for="name" class="form-label">Title:</label>
+                    <input type="text" id="name" th:field="*{title}" class="form-control" required />
+                </div>
+
+                <div class="mb-3">
+                    <label for="keyword" class="form-label">Content:</label>
+                    <input type="text" id="keyword" th:field="*{content}" class="form-control" required />
+                </div>
+
+                <div class="mb-3">
+                    <label for="parentPageId" class="form-label">Category ID:</label>
+                    <input type="text" id="parentPageId" th:field="*{categoryId}" class="form-control" required />
+                </div>
+
+                <div class="mt-4">
+                    <button type="submit" class="btn btn-success">Save Changes</button>
+                    <a href="/post/all" class="btn btn-secondary ms-2">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div th:replace="FrontEndLayout::pFooter"></div>
 </body>
 </html>
