@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<div th:replace="fragments/header :: #header"></div>
+<body>
+<div th:replace="fragments/topbar :: #topbar"></div>
+<div id="layoutSidenav">
+    <div th:replace="fragments/sidebar :: #layoutSidenav_nav"></div>
+    <div id="layoutSidenav_content">
+        <main class="container-fluid px-4">
+            <h2 class="mt-4">User Detail</h2>
+            <div class="card mt-3">
+                <div class="card-body">
+                    <p><strong>ID:</strong> <span th:text="${userDetail.id}"></span></p>
+                    <p><strong>Name:</strong> <span th:text="${userDetail.name}"></span></p>
+                    <p><strong>Email:</strong> <span th:text="${userDetail.email}"></span></p>
+                    <p><strong>Password:</strong> <span th:text="${userDetail.password}"></span></p>
+                    <p><strong>Role:</strong> <span th:text="${userDetail.role}"></span></p>
+                </div>
+            </div>
+            <a class="btn btn-secondary mt-3" th:href="@{/users/all}">🔙 Back to List</a>
+        </main>
+        <div th:replace="fragments/footer :: #footer"></div>
+    </div>
+</div>
+</body>
+</html>
