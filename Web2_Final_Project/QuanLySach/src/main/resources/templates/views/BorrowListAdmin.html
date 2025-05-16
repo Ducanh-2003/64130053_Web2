@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<div th:replace="fragments/header :: #header"></div>
+<body>
+<div th:replace="fragments/topbar :: #topbar"></div>
+<div id="layoutSidenav">
+    <div th:replace="fragments/sidebar :: #layoutSidenav_nav"></div>
+    <div id="layoutSidenav_content">
+        <main class="container-fluid px-4">
+            <h2 class="mt-4">Borrow Requests</h2>
+            <div class="card mb-4 mt-3">
+                <div class="card-body">
+                    <table class="table table-bordered table-striped">
+                        <thead class="table-dark">
+                        <tr>
+                            <th>ID</th>
+                            <th>User</th>
+                            <th>Book</th>
+                            <th>Borrow Date</th>
+                            <th>Return Date</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="borrow : ${borrowList}">
+                            <td th:text="${borrow.id}"></td>
+                            <td th:text="${borrow.user.name}"></td>
+                            <td th:text="${borrow.book.title}"></td>
+                            <td th:text="${borrow.borrowDate}"></td>
+                            <td th:text="${borrow.returnDate}"></td>
+                            <td th:text="${borrow.status}"></td>
+                            <td>
+                                <div th:if="${borrow.status == 'pending'}" class="d-flex gap-2">
+                                    <a th:href="@{/borrows/approve/{id}(id=${borrow.id})}" class="btn btn-success btn-sm">✔ Approve</a>
+                                    <a th:href="@{/borrows/reject/{id}(id=${borrow.id})}" class="btn btn-danger btn-sm">✖ Reject</a>
+                                </div>
+                                <span th:if="${borrow.status != 'pending'}">✔ Processed</span>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+        <div th:replace="fragments/footer :: #footer"></div>
+    </div>
+</div>
+</body>
+</html>

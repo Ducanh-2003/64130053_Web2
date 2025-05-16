@@ -4,19 +4,26 @@
             <div class="sb-sidenav-menu">
                 <div class="nav">
 
-                    <div class="sb-sidenav-menu-heading">Quản lý</div>
+                    <div class="sb-sidenav-menu-heading">Management</div>
                     <a class="nav-link" href="/dashboard">
                         <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                         Dashboard
                     </a>
 
-                    <a class="nav-link" href="/books">
+                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseBooks" aria-expanded="false" aria-controls="collapseBooks">
                         <div class="sb-nav-link-icon"><i class="fas fa-book"></i></div>
                         Books Management
+                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                     </a>
+                    <div class="collapse" id="collapseBooks" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                        <nav class="sb-sidenav-menu-nested nav">
+                            <a class="nav-link" href="/books/all">List Books</a>
+                            <a class="nav-link" href="/books/new">Create New Book</a>
+                        </nav>
+                    </div>
 
                     <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseUsers" aria-expanded="false" aria-controls="collapseUsers">
-                        <div class="sb-nav-link-icon"><i class="fas fa-users"></i></div>
+                        <div class="sb-nav-link-icon"><i class="fas fa-user"></i></div>
                         Users Management
                         <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                     </a>
@@ -27,13 +34,13 @@
                         </nav>
                     </div>
 
-                    <a class="nav-link" href="/borrows">
-                        <div class="sb-nav-link-icon"><i class="fas fa-users"></i></div>
+                    <a class="nav-link" href="/borrows/admin">
+                        <div class="sb-nav-link-icon"><i class="fas fa-book-medical"></i></div>
                         Borrows Management
                     </a>
 
                     <div class="sb-sidenav-menu-heading">Account</div>
-                    <a class="nav-link" href="/login">
+                    <a class="nav-link" href="/logout">
                         <div class="sb-nav-link-icon"><i class="fas fa-sign-out-alt"></i></div>
                         Log out
                     </a>

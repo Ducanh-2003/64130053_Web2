@@ -17,7 +17,9 @@
                     <p><strong>Role:</strong> <span th:text="${userDetail.role}"></span></p>
                 </div>
             </div>
-            <a class="btn btn-secondary mt-3" th:href="@{/users/all}">🔙 Back to List</a>
+            <div class="d-flex justify-content-center">
+                <a class="btn btn-secondary mt-3" th:href="@{/users/all}">🔙 Back to List</a>
+            </div>
         </main>
         <div th:replace="fragments/footer :: #footer"></div>
     </div>
