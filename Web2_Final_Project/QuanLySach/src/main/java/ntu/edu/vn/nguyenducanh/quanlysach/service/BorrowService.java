@@ -1,38 +1,17 @@
 package ntu.edu.vn.nguyenducanh.quanlysach.service;
 
 import ntu.edu.vn.nguyenducanh.quanlysach.model.Borrow;
-import ntu.edu.vn.nguyenducanh.quanlysach.repository.BorrowRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import ntu.edu.vn.nguyenducanh.quanlysach.model.User;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 @Service
-public class BorrowService {
-    @Autowired
-    private BorrowRepository borrowRepository;
-
-    public List<Borrow> findAll() {
-        return borrowRepository.findAll();
-    }
-
-    public void saveBorrow(Borrow borrow) {
-        borrow.setStatus("Đang mượn");
-        borrow.setBorrowDate(LocalDate.now());
-        borrowRepository.save(borrow);
-    }
-
-    public Borrow getBorrowById(int id) {
-        return borrowRepository.findById(id).orElse(null);
-    }
-
-    public void markAsReturned(int id) {
-        Borrow borrow = borrowRepository.findById(id).orElse(null);
-        if (borrow != null) {
-            borrow.setStatus("Đã trả");
-            borrow.setReturnDate(LocalDate.now());
-            borrowRepository.save(borrow);
-        }
-    }
+public interface BorrowService {
+    List<Borrow> findAll();
+    List<Borrow> findByUser(User user);
+    Optional<Borrow> findById(int id);
+    void save(Borrow borrow);
+    void deleteById(int id);
 }

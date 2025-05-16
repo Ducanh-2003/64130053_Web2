@@ -66,6 +66,7 @@ public class UserController {
             existingUser.setName(user.getName());
             existingUser.setEmail(user.getEmail());
             existingUser.setPassword(user.getPassword());
+            existingUser.setRole(user.getRole());
             userService.save(existingUser);
         }
         return "redirect:/users/all";
