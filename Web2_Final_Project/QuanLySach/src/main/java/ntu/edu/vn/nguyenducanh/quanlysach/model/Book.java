@@ -26,6 +26,9 @@ public class Book {
     @Column(name = "category_name")
     private String categoryName;
 
+    @Column(name = "avatar_url")
+    private String avatarUrl;
+
     @OneToMany(mappedBy = "book", cascade = CascadeType.ALL)
     private List<Borrow> borrows;
 }

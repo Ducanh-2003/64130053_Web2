@@ -31,12 +31,16 @@
                             <td th:text="${borrow.returnDate}"></td>
                             <td th:text="${borrow.status}"></td>
                             <td>
-                                <div th:if="${borrow.status == 'pending'}" class="d-flex gap-2">
-                                    <a th:href="@{/borrows/approve/{id}(id=${borrow.id})}" class="btn btn-success btn-sm">✔ Approve</a>
-                                    <a th:href="@{/borrows/reject/{id}(id=${borrow.id})}" class="btn btn-danger btn-sm">✖ Reject</a>
-                                </div>
-                                <span th:if="${borrow.status != 'pending'}">✔ Processed</span>
+                                <span th:if="${borrow.status == 'pending'}">
+                                    <a th:href="@{/borrows/approve/{id}(id=${borrow.id})}" class="btn btn-success btn-sm me-1">✅ Approve</a>
+                                    <a th:href="@{/borrows/reject/{id}(id=${borrow.id})}" class="btn btn-danger btn-sm">❌ Decline</a>
+                                </span>
+                                <span th:if="${borrow.status != 'pending'}">
+                                    <span th:if="${borrow.status == 'approved'}" class="text-success fw-bold">Approved</span>
+                                    <span th:if="${borrow.status == 'pending'}" class="text-danger fw-bold">Pending</span>
+                                </span>
                             </td>
+
                         </tr>
                         </tbody>
                     </table>
