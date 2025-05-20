@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Book App</title>
+    <link rel="icon" type="image/x-icon" href="/assets/img/favicon.ico" />
+    <link href="https://fonts.googleapis.com/css?family=Varela+Round" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,300,400,600,700,800,900" rel="stylesheet" />
+    <link href="/css/user_style.css" rel="stylesheet" />
+    <script src="/js/user_scripts.js"></script>
+</head>
+
+<body>
+<nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+    <div class="container">
+        <a class="navbar-brand" href="#index">BOOK APP</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarResponsive" aria-controls="navbarResponsive"
+                aria-expanded="false" aria-label="Toggle navigation">
+            Menu <i class="fas fa-bars"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a class="nav-link" href="#about">INTRODUCTION</a></li>
+                <li class="nav-item" th:if="${session.loggedInUser == null}">
+                    <a class="nav-link" href="/login">LOGIN</a>
+                </li>
+                <li class="nav-item" th:if="${session.loggedInUser != null}">
+                    <a class="nav-link" href="/logout">LOGOUT</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<header class="masthead">
+    <div class="container d-flex h-100 align-items-center justify-content-center">
+        <div class="text-center">
+            <h1 class="text-uppercase">Book App</h1>
+            <h2 class="text-white-50 mt-2 mb-5">An easy and fast book borrowing app for students.</h2>
+            <a class="btn btn-primary" href="#index">Get Started</a>
+        </div>
+    </div>
+</header>
+<section class="about-section text-center bg-about" id="about">
+    <div class="container px-4 px-lg-5 ">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-lg-8 mt-lg-5">
+                <h2 class="text-white mb-4">Built with Bootstrap 5</h2>
+                <p class="text-white-50">
+                    Grayscale is a free Bootstrap theme created by Start Bootstrap. It can be yours right now, simply download the template on
+                    <a href="https://startbootstrap.com/theme/grayscale/">the preview page.</a>
+                    The theme is open source, and you can use it for any purpose, personal or commercial.
+                </p>
+            </div>
+        </div>
+<!--        <img class="img-fluid bg-about" src="/assets/img/about.jpg" alt="..." />-->
+    </div>
+</section>
+<section class="projects-section bg-light" id="index">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="text-dark">Book List</h2>
+            <p class="text-muted">Choose a book you want to borrow from the digital library</p>
+        </div>
+
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+            <!-- Loop through books -->
+            <div class="col" th:each="book : ${bookList}">
+                <div class="card h-100 shadow-sm">
+                    <img th:src="${book.avatarUrl}" class="card-img-top book-img" alt="Book Cover" />
+                    <div class="card-body">
+                        <h3 class="card-title" th:text="${book.title}"></h3>
+                        <p class="card-text" th:text="'by ' + ${book.author}"></p>
+                        <p class="card-text" th:text="${book.description}"></p>
+                    </div>
+                    <div class="card-footer text-center">
+                        <a th:href="@{/borrow(bookId=${book.id})}" class="btn btn-primary">Borrow Now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer class="footer bg-black small text-center text-white">
+    <div class="container">Copyright &copy; Nguyen Duc Anh - Website 2025</div>
+</footer>
+
+</body>
+</html>

@@ -29,7 +29,7 @@ public class AuthController {
             if ("admin".equalsIgnoreCase(user.get().getRole())) {
                 return "redirect:/dashboard";
             } else {
-                return "redirect:/index";
+                return "redirect:/borrows/user";
             }
         } else {
             model.addAttribute("error", "Sai tên đăng nhập hoặc mật khẩu");
