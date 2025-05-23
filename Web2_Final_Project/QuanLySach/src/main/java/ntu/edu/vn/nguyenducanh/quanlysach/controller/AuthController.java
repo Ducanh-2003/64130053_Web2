@@ -27,39 +27,42 @@ public class AuthController {
         if (user.isPresent()) {
             session.setAttribute("loggedInUser", user.get());
             if ("admin".equalsIgnoreCase(user.get().getRole())) {
-                return "redirect:/dashboard";
+                model.addAttribute("success", "Đăng nhập thành công!");
+                return "views/DashBoard";
             } else {
-                return "redirect:/borrows/user";
+                model.addAttribute("success", "Đăng nhập thành công!");
+                return "views/BookListForUser";
             }
         } else {
             model.addAttribute("error", "Sai tên đăng nhập hoặc mật khẩu");
-            return "redirect:/login";
+            return "login";
         }
     }
 
     @PostMapping("/register")
-    public String register(@RequestParam String username,
+    public String register(@RequestParam String name,
                            @RequestParam String email,
                            @RequestParam String password,
-                           @RequestParam String repeatPassword,
+                           @RequestParam String confirmPassword,
                            ModelMap model) {
-        if (!repeatPassword.equals(password)) {
+        if (!confirmPassword.equals(password)) {
             model.addAttribute("error", "Mật khẩu không khớp");
-            return "redirect:/register";
+            return "register";
         }
 
         User user = new User();
-        user.setName(username);
+        user.setName(name);
         user.setEmail(email);
         user.setPassword(password);
+        user.setRole("user");
 
         boolean result = authService.register(user);
         if (result) {
             model.addAttribute("success", "Đăng ký tài khoản thành công");
-            return "redirect:/login";
+            return "login";
         } else {
             model.addAttribute("error", "Email đã tồn tại");
-            return "redirect:/register";
+            return "register";
         }
     }
 

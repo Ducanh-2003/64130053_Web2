@@ -66,7 +66,6 @@ public class BookController {
             existingBook.setTitle(book.getTitle());
             existingBook.setAuthor(book.getAuthor());
             existingBook.setDescription(book.getDescription());
-            existingBook.setQuantity(book.getQuantity());
             existingBook.setCategoryName(book.getCategoryName());
             bookService.save(existingBook);
         }

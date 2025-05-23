@@ -21,13 +21,14 @@ public class Book {
     @Column(columnDefinition = "TEXT")
     private String description;
 
-    private Integer quantity;
-
     @Column(name = "category_name")
     private String categoryName;
 
     @Column(name = "avatar_url")
     private String avatarUrl;
+
+    @Column(name = "book_link")
+    private String bookLink;
 
     @OneToMany(mappedBy = "book", cascade = CascadeType.ALL)
     private List<Borrow> borrows;
