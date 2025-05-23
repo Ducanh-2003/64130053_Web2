@@ -33,11 +33,10 @@
                             <td>
                                 <span th:if="${borrow.status == 'pending'}">
                                     <a th:href="@{/borrows/approve/{id}(id=${borrow.id})}" class="btn btn-success btn-sm me-1">✅ Approve</a>
-                                    <a th:href="@{/borrows/reject/{id}(id=${borrow.id})}" class="btn btn-danger btn-sm">❌ Decline</a>
                                 </span>
                                 <span th:if="${borrow.status != 'pending'}">
-                                    <span th:if="${borrow.status == 'approved'}" class="text-success fw-bold">Approved</span>
-                                    <span th:if="${borrow.status == 'pending'}" class="text-danger fw-bold">Pending</span>
+                                    <span th:if="${borrow.status == 'approved'}" class="text-success fw-bold">Đã duyệt</span>
+                                    <span th:if="${borrow.status == 'returned'}" class="text-success fw-bold">Đã trả</span>
                                 </span>
                             </td>
 
