@@ -3,6 +3,9 @@ package ntu.edu.vn.nguyenducanh.quanlysach.controller;
 import ntu.edu.vn.nguyenducanh.quanlysach.model.User;
 import ntu.edu.vn.nguyenducanh.quanlysach.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
@@ -18,9 +21,14 @@ public class UserController {
     private UserService userService;
 
     @GetMapping("/all")
-    public String getAllUsers(ModelMap model) {
-        List<User> users = userService.findAll();
-        model.addAttribute("userList", users);
+    public String getAllUsers(@RequestParam(defaultValue = "0") int page,
+                              @RequestParam(defaultValue = "5") int size,
+                              ModelMap model) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<User> userPage = userService.findAll(pageable);
+        model.addAttribute("userPage", userPage);
+        model.addAttribute("currentPage", page);
+        model.addAttribute("pageSize", size);
         return "views/UserList";
     }
 
@@ -29,7 +37,6 @@ public class UserController {
         model.addAttribute("user", new User());
         return "views/UserCreate";
     }
-
     @PostMapping("/new")
     public String postNewUser(@ModelAttribute User user) {
         userService.save(user);
@@ -57,7 +64,6 @@ public class UserController {
             return "redirect:/users/all";
         }
     }
-
     @PostMapping("/edit/{id}")
     public String postEditUser(@PathVariable("id") int id, @ModelAttribute User user) {
         Optional<User> existingUserOpt = userService.findById(id);

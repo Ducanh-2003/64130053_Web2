@@ -1,12 +1,19 @@
 package ntu.edu.vn.nguyenducanh.quanlysach.controller;
 
+import jakarta.servlet.http.HttpServletRequest;
 import ntu.edu.vn.nguyenducanh.quanlysach.model.Book;
 import ntu.edu.vn.nguyenducanh.quanlysach.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,9 +25,15 @@ public class BookController {
     private BookService bookService;
 
     @GetMapping("/all")
-    public String getAllBooks(ModelMap model) {
-        List<Book> books = bookService.findAll();
-        model.addAttribute("bookList", books);
+    public String getAllBooks(@RequestParam(defaultValue = "0") int page,
+                              @RequestParam(defaultValue = "5") int size,
+                              ModelMap model) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Book> bookPage = bookService.findAll(pageable);
+
+        model.addAttribute("bookPage", bookPage);
+        model.addAttribute("currentPage", page);
+        model.addAttribute("pageSize", size);
         return "views/BookList";
     }
 
@@ -29,16 +42,23 @@ public class BookController {
         model.addAttribute("book", new Book());
         return "views/BookCreate";
     }
-
     @PostMapping("/new")
-    public String postNewBook(@ModelAttribute Book book) {
+    public String postNewBook(@ModelAttribute Book book,
+                              @RequestParam("avatarFile") MultipartFile avatarFile)  throws IOException {
+        String uploadDir = "C:\\JavaCode\\64130053_Web2\\Web2_Final_Project\\QuanLySach\\src\\main\\resources\\static\\assets\\img";
+        File uploadPath = new File(uploadDir);
+        String fileName = avatarFile.getOriginalFilename();
+        assert fileName != null;
+        File destinationFile = new File(uploadPath, fileName);
+        avatarFile.transferTo(destinationFile);
+        book.setAvatarUrl("/assets/img/" + fileName);
         bookService.save(book);
         return "redirect:/books/all";
     }
 
     @GetMapping("/view/{id}")
     public String viewBook(@PathVariable("id") int id, ModelMap model) {
-        Optional<Book> bookOpt = bookService.findById(id);
+            Optional<Book> bookOpt = bookService.findById(id);
         if (bookOpt.isPresent()) {
             model.addAttribute("bookDetail", bookOpt.get());
             return "views/BookView";
@@ -49,17 +69,17 @@ public class BookController {
 
     @GetMapping("/edit/{id}")
     public String getEditBookForm(@PathVariable("id") int id, ModelMap model) {
-        Optional<Book> userOpt = bookService.findById(id);
-        if (userOpt.isPresent()) {
-            model.addAttribute("bookEdit", userOpt.get());
+        Optional<Book> bookOpt = bookService.findById(id);
+        if (bookOpt.isPresent()) {
+            model.addAttribute("bookEdit", bookOpt.get());
             return "views/BookEdit";
         } else {
             return "redirect:/books/all";
         }
     }
-
     @PostMapping("/edit/{id}")
-    public String postEditBook(@PathVariable("id") int id, @ModelAttribute Book book) {
+    public String postEditBook(@PathVariable("id") int id, @ModelAttribute Book book,
+                               @RequestParam(value = "avatarFile", required = false) MultipartFile avatarFile) throws IOException {
         Optional<Book> existingBookOpt = bookService.findById(id);
         if (existingBookOpt.isPresent()) {
             Book existingBook = existingBookOpt.get();
@@ -67,6 +87,17 @@ public class BookController {
             existingBook.setAuthor(book.getAuthor());
             existingBook.setDescription(book.getDescription());
             existingBook.setCategoryName(book.getCategoryName());
+            existingBook.setBookLink(book.getBookLink());
+            if (avatarFile != null && !avatarFile.isEmpty()) {
+                String uploadDir = "C:\\JavaCode\\64130053_Web2\\Web2_Final_Project\\QuanLySach\\src\\main\\resources\\static\\assets\\img";
+                File uploadPath = new File(uploadDir);
+                String fileName = avatarFile.getOriginalFilename();
+                assert fileName != null;
+                File destinationFile = new File(uploadPath, fileName);
+                avatarFile.transferTo(destinationFile);
+                existingBook.setAvatarUrl("/assets/img/" + fileName);
+            }
+
             bookService.save(existingBook);
         }
         return "redirect:/books/all";

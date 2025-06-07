@@ -23,21 +23,39 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr th:each="book : ${bookList}">
+                        <tr th:each="book : ${bookPage}">
                             <td th:text="${book.id}"></td>
                             <td th:text="${book.title}"></td>
                             <td th:text="${book.author}"></td>
-                            <td th:text="${book.description}"></td>
+                            <td th:text="${#strings.length(book.description) > 70} ? ${book.description.substring(0, 70)} + '...' : ${book.description}"></td>
                             <td th:text="${book.categoryName}"></td>
                             <td>
-                                <a class="btn btn-sm btn-info" th:href="@{/books/view/{id}(id=${book.id})}">👁 Xem</a>
-                                <a class="btn btn-sm btn-warning" th:href="@{/books/edit/{id}(id=${book.id})}">✏️ Sửa</a>
+                                <a class="btn btn-sm btn-info" th:href="@{/books/view/{id}(id=${book.id})}">👁 </a>
+                                <a class="btn btn-sm btn-warning" th:href="@{/books/edit/{id}(id=${book.id})}">✏️ </a>
                                 <a class="btn btn-sm btn-danger" th:href="@{/books/delete/{id}(id=${book.id})}"
-                                   onclick="return confirm('Confirm delete?')">❌ Xóa</a>
+                                   onclick="return confirm('Confirm delete?')">❌ </a>
                             </td>
                         </tr>
                         </tbody>
                     </table>
+                    <nav>
+                        <ul class="pagination justify-content-center">
+
+                            <li class="page-item" th:classappend="${bookPage.first} ? 'disabled'">
+                                <a class="page-link" th:href="@{/books/all(page=${currentPage - 1}, size=${pageSize})}"><</a>
+                            </li>
+
+                            <li class="page-item" th:each="i : ${#numbers.sequence(0, bookPage.totalPages - 1)}"
+                                th:classappend="${i == currentPage} ? 'active'">
+                                <a class="page-link" th:href="@{/books/all(page=${i}, size=${pageSize})}" th:text="${i + 1}">1</a>
+                            </li>
+
+                            <li class="page-item" th:classappend="${bookPage.last} ? 'disabled'">
+                                <a class="page-link" th:href="@{/books/all(page=${currentPage + 1}, size=${pageSize})}">></a>
+                            </li>
+
+                        </ul>
+                    </nav>
                 </div>
             </div>
         </main>

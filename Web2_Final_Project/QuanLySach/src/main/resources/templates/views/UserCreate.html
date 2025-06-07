@@ -7,12 +7,12 @@
     <div th:replace="fragments/sidebar :: #layoutSidenav_nav"></div>
     <div id="layoutSidenav_content">
         <main class="container-fluid px-4">
-            <h2 class="mt-4">Create New User</h2>
+            <h2 class="mt-4">Tạo mới người dùng</h2>
             <div class="card mb-4">
                 <div class="card-body">
                 <form th:action="@{/users/new}" th:object="${user}" method="post" class="mt-4">
                     <div class="mb-3">
-                        <label for="name" class="form-label">Name</label>
+                        <label for="name" class="form-label">Họ tên</label>
                         <input id="name" th:field="*{name}" type="text" class="form-control" required />
                     </div>
 
@@ -22,12 +22,12 @@
                     </div>
 
                     <div class="mb-3">
-                        <label for="role" class="form-label">Role</label>
+                        <label for="role" class="form-label">Vai trò</label>
                         <input id="role" th:field="*{role}" type="text" class="form-control" required />
                     </div>
 
                     <div class="mb-3">
-                        <label for="password" class="form-label">Password</label>
+                        <label for="password" class="form-label">Mật khẩu</label>
                         <div class="input-group">
                             <input id="password" th:field="*{password}" type="password" class="form-control" required />
                             <span class="input-group-text" style="cursor: pointer" onclick="togglePassword()">

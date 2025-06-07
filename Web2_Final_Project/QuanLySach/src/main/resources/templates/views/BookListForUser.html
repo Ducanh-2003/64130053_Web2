@@ -23,7 +23,8 @@
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item"><a class="nav-link" href="#about">GIỚI THIỆU</a></li>
-                <li class="nav-item"><a class="nav-link" href="/borrows/borrowed">SÁCH ĐÃ MƯỢN</a></li>
+                <li class="nav-item"><a class="nav-link" href="#index">THƯ VIỆN SÁCH</a></li>
+                <li class="nav-item"><a class="nav-link no-scrollspy" href="/borrows/borrowed#index">SÁCH ĐÃ MƯỢN</a></li>
                 <li class="nav-item" th:if="${session.loggedInUser == null}">
                     <a class="nav-link" href="/login">ĐĂNG NHẬP</a>
                 </li>
@@ -63,18 +64,30 @@
 <section class="projects-section bg-light" id="index">
     <div class="container">
         <div class="text-center mb-5">
-            <h2 class="text-dark">Danh Sách Sách</h2>
+            <h2 class="text-dark">LIBRALINK</h2>
             <p class="text-muted">Chọn một cuốn sách bạn muốn mượn từ thư viện số</p>
+        </div>
+        <div class="row justify-content-center mb-4 ms-lg-5">
+            <div class="col-md-6">
+                <form th:action="@{/borrows/user#index}" method="get" class="input-group">
+                    <input type="text" name="keyword" class="form-control"
+                           placeholder="Nhập tiêu đề sách..."
+                           th:value="${keyword}" />
+                    <input type="hidden" name="size" th:value="${pageSize}" />
+                    <button class="btn btn-primary" type="submit"> Tìm kiếm</button>
+                </form>
+
+            </div>
         </div>
 
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-4">
-        <div class="col" th:each="book : ${bookList}">
+        <div class="col" th:each="book : ${bookPage}">
                 <div class="card h-100 shadow-sm">
                     <img th:src="${book.avatarUrl}" class="card-img-top book-img" alt="Bìa sách" />
                     <div class="card-body">
                         <h3 class="card-title" th:text="${book.title}"></h3>
                         <p class="card-text" th:text="'tác giả: ' + ${book.author}"></p>
-                        <p class="card-text" th:text="${book.description}"></p>
+                        <p class="card-text" th:text="${#strings.length(book.description) > 70} ? ${book.description.substring(0, 70)} + '...' : ${book.description}"></p>
                     </div>
                     <div class="card-footer text-center">
                         <a th:href="@{/borrows/borrow(bookId=${book.id})}" class="btn btn-primary">Mượn Ngay</a>
@@ -82,6 +95,30 @@
                 </div>
             </div>
         </div>
+        <nav class="mt-5">
+            <ul class="pagination justify-content-center">
+
+                <li class="page-item" th:classappend="${bookPage.first} ? 'disabled'">
+                    <a class="page-link"
+                       th:href="@{'/borrows/user#index'(page=${currentPage - 1}, size=${pageSize}, keyword=${#strings.isEmpty(keyword) ? null : keyword})}">‹</a>
+                </li>
+
+                <li class="page-item"
+                    th:each="i : ${#numbers.sequence(0, bookPage.totalPages - 1)}"
+                    th:classappend="${i == currentPage} ? 'active'">
+                    <a class="page-link"
+                       th:href="@{'/borrows/user#index'(page=${i}, size=${pageSize}, keyword=${#strings.isEmpty(keyword) ? null : keyword})}"
+                       th:text="${i + 1}">1</a>
+                </li>
+
+                <li class="page-item" th:classappend="${bookPage.last} ? 'disabled'">
+                    <a class="page-link"
+                       th:href="@{'/borrows/user#index'(page=${currentPage + 1}, size=${pageSize}, keyword=${#strings.isEmpty(keyword) ? null : keyword})}">›</a>
+                </li>
+
+            </ul>
+        </nav>
+
     </div>
 </section>
 
@@ -89,23 +126,6 @@
     <div class="container">Bản quyền &copy; Nguyen Duc Anh - Website 2025</div>
 </footer>
 
-<div class="modal fade" id="borrowSuccessModal" tabindex="-1" aria-labelledby="borrowSuccessLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content text-center">
-            <div class="modal-header bg-success text-white">
-                <h3 class="modal-title" id="borrowSuccessLabel">Thành công!</h3>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Đóng"></button>
-            </div>
-            <div class="modal-body">
-                <p>✅ Bạn đã mượn sách thành công!</p>
-                <p>📚 Vui lòng vào trang <strong>Sách đã mượn</strong> để đọc sách.</p>
-            </div>
-            <div class="modal-footer">
-                <a href="/borrows/borrowed" class="btn btn-primary">Xem danh sách sách đã mượn</a>
-            </div>
-        </div>
-    </div>
-</div>
 </body>
 <div th:if="${success}"
      class="alert alert-success"
@@ -117,5 +137,16 @@
      style="position: fixed; top: 100px; right: 20px; z-index: 1050; min-width: 250px; box-shadow: 0 0 10px rgba(0,0,0,0.3);"
      th:text="${error}">
 </div>
+<script>
+    setTimeout(function () {
+        const alerts = document.querySelectorAll('.alert');
+        alerts.forEach(alert => {
+            alert.style.transition = 'opacity 0.5s ease';
+            alert.style.opacity = '0';
+            setTimeout(() => alert.remove(), 500);
+        });
+    }, 2000);
+</script>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </html>
