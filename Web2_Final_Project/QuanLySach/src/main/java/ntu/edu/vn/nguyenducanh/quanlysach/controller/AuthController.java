@@ -9,6 +9,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.Optional;
 
@@ -19,50 +20,49 @@ public class AuthController {
     private AuthService authService;
 
     @PostMapping("/login")
-    public String login(@RequestParam String email,
-                        @RequestParam String password,
-                        ModelMap model,
-                        HttpSession session) {
+    public String login(@RequestParam String email, @RequestParam String password,
+                        RedirectAttributes redirectAttributes,HttpSession session) {
         Optional<User> user = authService.login(email, password);
         if (user.isPresent()) {
             session.setAttribute("loggedInUser", user.get());
+            session.setAttribute("loggedRole", user.get().getRole());
+            redirectAttributes.addFlashAttribute("success",
+                    "Đăng nhập thành công!");
             if ("admin".equalsIgnoreCase(user.get().getRole())) {
-                model.addAttribute("success", "Đăng nhập thành công!");
-                return "views/DashBoard";
+                return "redirect:/dashboard";
             } else {
-                model.addAttribute("success", "Đăng nhập thành công!");
-                return "views/BookListForUser";
+                return "redirect:/borrows/user";
             }
         } else {
-            model.addAttribute("error", "Sai tên đăng nhập hoặc mật khẩu");
-            return "login";
+            redirectAttributes.addFlashAttribute("error",
+                    "Sai tên đăng nhập hoặc mật khẩu");
+            return "redirect:/login";
         }
     }
 
-    @PostMapping("/register")
-    public String register(@RequestParam String name,
-                           @RequestParam String email,
-                           @RequestParam String password,
-                           @RequestParam String confirmPassword,
-                           ModelMap model) {
-        if (!confirmPassword.equals(password)) {
-            model.addAttribute("error", "Mật khẩu không khớp");
-            return "register";
-        }
 
+    @PostMapping("/register")
+    public String register(@RequestParam String name, @RequestParam String email, @RequestParam String password,
+                           @RequestParam String confirmPassword, RedirectAttributes redirectAttributes) {
+        if (!confirmPassword.equals(password)) {
+            redirectAttributes.addFlashAttribute("error",
+                    "Mật khẩu không khớp");
+            return "redirect:/register";
+        }
         User user = new User();
         user.setName(name);
         user.setEmail(email);
         user.setPassword(password);
         user.setRole("user");
-
         boolean result = authService.register(user);
         if (result) {
-            model.addAttribute("success", "Đăng ký tài khoản thành công");
-            return "login";
+            redirectAttributes.addFlashAttribute("success",
+                    "Đăng ký tài khoản thành công");
+            return "redirect:/login";
         } else {
-            model.addAttribute("error", "Email đã tồn tại");
-            return "register";
+            redirectAttributes.addFlashAttribute("error",
+                    "Email đã tồn tại");
+            return "redirect:/register";
         }
     }
 

@@ -7,18 +7,18 @@
     <div th:replace="fragments/sidebar :: #layoutSidenav_nav"></div>
     <div id="layoutSidenav_content">
         <main class="container-fluid px-4">
-            <h2 class="mt-4">User Detail</h2>
+            <h2 class="mt-4">Chi tiết người dùng</h2>
             <div class="card mt-3">
                 <div class="card-body">
                     <p><strong>ID:</strong> <span th:text="${userDetail.id}"></span></p>
-                    <p><strong>Name:</strong> <span th:text="${userDetail.name}"></span></p>
+                    <p><strong>Họ tên:</strong> <span th:text="${userDetail.name}"></span></p>
                     <p><strong>Email:</strong> <span th:text="${userDetail.email}"></span></p>
-                    <p><strong>Password:</strong> <span th:text="${userDetail.password}"></span></p>
-                    <p><strong>Role:</strong> <span th:text="${userDetail.role}"></span></p>
+                    <p><strong>Mật khẩu:</strong> <span th:text="${userDetail.password}"></span></p>
+                    <p><strong>Vai trò:</strong> <span th:text="${userDetail.role}"></span></p>
                 </div>
             </div>
             <div class="d-flex justify-content-center">
-                <a class="btn btn-secondary mt-3" th:href="@{/users/all}">🔙 Back to List</a>
+                <a class="btn btn-secondary mt-3" th:href="@{/users/all}">🔙 Quay lại</a>
             </div>
         </main>
         <div th:replace="fragments/footer :: #footer"></div>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="vi">
 <div th:replace="fragments/header :: #header"></div>
 <body>
 <div th:replace="fragments/topbar :: #topbar"></div>
@@ -9,43 +9,57 @@
 
     <div id="layoutSidenav_content">
         <main class="container-fluid px-4">
-            <h2 class="mt-4">List of Users</h2>
+            <h2 class="mt-4">Danh sách Người dùng</h2>
 
             <div class="mb-3">
-                <a class="btn btn-success" th:href="@{/users/new}">➕ Create New User</a>
+                <a class="btn btn-success" th:href="@{/users/new}">➕ Tạo Người dùng Mới</a>
             </div>
 
             <div class="card mb-4">
-                <div class="card-header"><i class="fas fa-users"></i> User Table</div>
                 <div class="card-body">
                     <table class="table table-bordered table-hover">
-                        <thead class="table-dark">
+                        <thead>
                         <tr>
                             <th>ID</th>
-                            <th>Username</th>
+                            <th>Tên đăng nhập</th>
                             <th>Email</th>
-                            <th>Role</th>
+                            <th>Vai trò</th>
                             <th></th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr th:each="user : ${userList}">
+                        <tr th:each="user : ${userPage}">
                             <td th:text="${user.id}"></td>
                             <td th:text="${user.name}"></td>
                             <td th:text="${user.email}"></td>
                             <td th:text="${user.role}"></td>
                             <td>
-                                <a class="btn btn-info btn-sm" th:href="@{/users/view/{id}(id=${user.id})}">👁 View</a>
-                                <a class="btn btn-warning btn-sm" th:href="@{/users/edit/{id}(id=${user.id})}">✏️ Edit</a>
-                                <a class="btn btn-danger btn-sm" th:href="@{/users/delete/{id}(id=${user.id})}" onclick="return confirm('Confirm delete?')">❌ Delete</a>
+                                <a class="btn btn-info btn-sm" th:href="@{/users/view/{id}(id=${user.id})}">👁 </a>
+                                <a class="btn btn-warning btn-sm" th:href="@{/users/edit/{id}(id=${user.id})}">✏️ </a>
+                                <a class="btn btn-danger btn-sm" th:href="@{/users/delete/{id}(id=${user.id})}" onclick="return confirm('Xác nhận xóa?')">❌ </a>
                             </td>
                         </tr>
                         </tbody>
                     </table>
+                    <nav>
+                        <ul class="pagination justify-content-center">
+                        <li class="page-item" th:classappend="${currentPage == 0} ? 'disabled'">
+                                <a class="page-link" th:href="@{/users/all(page=${currentPage - 1}, size=${pageSize})}"><</a>
+                            </li>
+
+                            <li class="page-item" th:each="i : ${#numbers.sequence(0, userPage.totalPages - 1)}"
+                                th:classappend="${i == currentPage} ? 'active'">
+                                <a class="page-link" th:href="@{/users/all(page=${i}, size=${pageSize})}" th:text="${i + 1}">1</a>
+                            </li>
+
+                            <li class="page-item" th:classappend="${currentPage + 1 >= userPage.totalPages} ? 'disabled'">
+                                <a class="page-link" th:href="@{/users/all(page=${currentPage + 1}, size=${pageSize})}">></a>
+                            </li>
+                        </ul>
+                    </nav>
                 </div>
             </div>
         </main>
-
         <div th:replace="fragments/footer :: #footer"></div>
     </div>
 </div>

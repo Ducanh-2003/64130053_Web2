@@ -12,7 +12,7 @@ window.addEventListener('DOMContentLoaded', event => {
     // Navbar shrink function
     var navbarShrink = function () {
         const navbarCollapsible = document.body.querySelector('#mainNav');
-        const indexSection = document.querySelector('#index'); 
+        const indexSection = document.querySelector('#index');
 
         if (!navbarCollapsible || !indexSection) return;
 
@@ -22,6 +22,7 @@ window.addEventListener('DOMContentLoaded', event => {
             navbarCollapsible.classList.add('navbar-shrink');
         }
     };
+
 
 
     // Shrink the navbar
