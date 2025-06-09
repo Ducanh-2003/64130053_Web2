@@ -61,7 +61,7 @@ public class AuthController {
             return "redirect:/login";
         } else {
             redirectAttributes.addFlashAttribute("error",
-                    "Email đã tồn tại");
+                    "Email hoặc tên người dùng đã tồn tại");
             return "redirect:/register";
         }
     }
